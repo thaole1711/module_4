@@ -1,5 +1,7 @@
-package com.example.tra_tu_dien;
+package com.example.tra_tu_dien.controller;
 
+import com.example.tra_tu_dien.service.IDictionaryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +15,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/dictionary")
 public class DictionaryController {
-    private static Map<String, String> dictionary = new HashMap<>();
-
-    static {
-        dictionary.put("dictionary", "từ điển");
-        dictionary.put("look", "nhìn");
-        dictionary.put("cat", "con mèo");
-        dictionary.put("good", "tốt");
-        dictionary.put("bad", "xấu");
-    }
+   @Autowired
+   private IDictionaryService iDictionaryService;
 
     @GetMapping
     public String lookupDictionary() {
@@ -31,7 +26,7 @@ public class DictionaryController {
     @PostMapping
     String lookupDictionary(@RequestParam("word") String word,
                             Model model) {
-        String result = dictionary.get(word.toLowerCase());
+        String result = iDictionaryService.lookupDictionary(word.toLowerCase());
         model.addAttribute("word", word);
         model.addAttribute("result", result != null ? result : "không tìm thấy từ");
         return "form";

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -10,6 +11,11 @@
   <div class="col-md-4 mx-auto">
     <form method="post">
       <legend class="text-center mb-4">CHUYỂN ĐỔI TIỀN</legend>
+      <c:if test="${not empty error}">
+        <div class="alert alert-danger" role="alert">
+            ${error}
+        </div>
+      </c:if>
 
       <div class="mb-3">
         <label for="from" class="form-label">Từ</label>
@@ -45,6 +51,7 @@
     </form>
   </div>
 </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </body>
 </html>
