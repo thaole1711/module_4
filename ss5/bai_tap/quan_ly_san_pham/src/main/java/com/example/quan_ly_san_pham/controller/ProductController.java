@@ -1,8 +1,7 @@
 package com.example.quan_ly_san_pham.controller;
 
-import com.example.quan_ly_san_pham.model.Product;
+import com.example.quan_ly_san_pham.entity.Product;
 import com.example.quan_ly_san_pham.service.IProductService;
-import com.example.quan_ly_san_pham.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +14,12 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
-    private IProductService iProductService;
+    private IProductService productService;
 
     @GetMapping("")
     public String index(Model model) {
 
-        List<Product> products = iProductService.findAll();
+        List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         return "index";
     }
@@ -33,14 +32,14 @@ public class ProductController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Product product, RedirectAttributes attributes) {
-        iProductService.create(product);
+        productService.create(product);
         attributes.addFlashAttribute("mess", "Thêm mới thành công");
         return "redirect:/products";
     }
 
     @GetMapping("{id}/edit")
     public String edit(@PathVariable int id, Model model, RedirectAttributes attributes) {
-        Product product = iProductService.findById(id);
+        Product product = productService.findById(id);
         if (product == null) {
             attributes.addFlashAttribute("mess", "không tìm thấy sản phẩm");
             return "redirect:/products";
@@ -52,7 +51,7 @@ public class ProductController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Product product, RedirectAttributes attributes) {
-        boolean isSuccess = iProductService.update(product);
+        boolean isSuccess = productService.update(product);
         if (isSuccess) {
             attributes.addFlashAttribute("mess", "cập nhật thành công");
         } else {
@@ -63,7 +62,7 @@ public class ProductController {
 
     @PostMapping("{id}/delete")
     public String delete(@PathVariable int id, RedirectAttributes attributes) {
-        boolean isSuccess = iProductService.delete(id);
+        boolean isSuccess = productService.delete(id);
         if (isSuccess) {
             attributes.addFlashAttribute("mess", "xóa thành công");
         } else {
@@ -74,7 +73,7 @@ public class ProductController {
 
     @GetMapping("/search")
     public String search(@RequestParam String keyword, Model model) {
-        List<Product> products = iProductService.search(keyword);
+        List<Product> products = productService.search(keyword);
             model.addAttribute("keyword", keyword);
             model.addAttribute("products", products);
         return "index";
