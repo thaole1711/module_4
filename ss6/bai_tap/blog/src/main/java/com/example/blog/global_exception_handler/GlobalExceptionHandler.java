@@ -1,4 +1,4 @@
-package com.example.quan_ly_san_pham.global_exception_handler;
+package com.example.blog.global_exception_handler;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
