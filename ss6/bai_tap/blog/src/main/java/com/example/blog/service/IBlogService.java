@@ -8,7 +8,7 @@ public interface IBlogService {
     List<Blog> findAll();
     Blog findById(Integer id);
     void add(Blog blog);
-    void edit(Blog bog);
+    boolean edit(Blog bog);
     boolean delete(Integer id);
      List<Blog> findAllByTitleContaining(String name);
 }

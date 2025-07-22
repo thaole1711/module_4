@@ -32,11 +32,13 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public void edit(Blog bog) {
+    public boolean edit(Blog bog) {
         if (findById(bog.getId()) != null) {
             bog.setId(bog.getId());
             blogRepository.save(bog);
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -49,10 +51,10 @@ public class BlogService implements IBlogService {
         return false;
 
     }
-    @Override
-   public List<Blog> findAllByTitleContaining(String name){
-      return   blogRepository.findAllByTitleContaining(name);
 
+    @Override
+    public List<Blog> findAllByTitleContaining(String name) {
+        return blogRepository.findAllByTitleContaining(name);
     }
 
 

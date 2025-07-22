@@ -50,9 +50,15 @@ public class BlogController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Blog blog, RedirectAttributes attributes) {
-        blogService.edit(blog);
-        attributes.addFlashAttribute("mess", "cập nhật thành công");
-        return "redirect:/blogs";
+      boolean issuccess=  blogService.edit(blog);
+      if(issuccess){
+          attributes.addFlashAttribute("mess", "cập nhật thành công");
+          return "redirect:/blogs";
+      }else {
+          attributes.addFlashAttribute("mess", "cập nhật không thành công");
+          return "redirect:/blogs";
+      }
+        
     }
 
     @PostMapping("/{id}/delete")
