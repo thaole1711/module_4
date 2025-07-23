@@ -6,23 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Entity
-@Table(name = "blogs")
+@Table(name = "categories")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Blog extends Parent{
+public class Category extends Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String title;
-    private String content;
-
-    @ManyToOne
-    @JoinColumn(name = "id_category", referencedColumnName = "id_category")
-    private Category category;
+    @Column(name="id_category")
+    private Integer idCategory;
+    @Column(name="name_category")
+    private String nameCategory;
 
 }

@@ -19,8 +19,11 @@
                 <input type="text" id="content" th:field="*{content}">
             </div>
             <div>
-                <label for="category">Thể loại</label>
-                <input type="text" id="category" th:field="*{category}">
+                <label for="content">Thể loại</label>
+                <select th:field="*{category}">
+                    <option value="">tất cả loại</option>
+                    <option th:each="temp : ${categories}" th:text="${temp.nameCategory}" th:value="${temp.idCategory}"></option>
+                </select>
             </div>
             <div>
                 <input type="submit" value="save">

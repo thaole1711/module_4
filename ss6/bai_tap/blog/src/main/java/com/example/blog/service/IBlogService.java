@@ -1,14 +1,18 @@
 package com.example.blog.service;
 
 import com.example.blog.entity.Blog;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 
 public interface IBlogService {
     List<Blog> findAll();
+    Page<Blog> findAll(Pageable pageable);
     Blog findById(Integer id);
     void add(Blog blog);
     boolean edit(Blog bog);
     boolean delete(Integer id);
-     List<Blog> findAllByTitleContaining(String name);
+     Page<Blog> search(String name,Integer idCategory,Pageable pageable);
 }
