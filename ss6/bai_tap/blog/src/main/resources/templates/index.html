@@ -84,18 +84,14 @@
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item" th:if="${blogs.hasPrevious()}">
-<!--            <a th:if="${keyword!=null || categoryId!=null}" class="page-link" th:href="@{/blogs/search(page=${blogs.number - 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Previous">-->
             <a th:if="${keyword==null || categoryId==null}" class="page-link" th:href="@{/blogs(page=${blogs.number - 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
-<!--            </a>-->
         </li>
         <li class="page-item" th:if="${blogs.hasNext()}">
-<!--            <a th:if="${keyword!=null || categoryId!=null}" class="page-link" th:href="@{/blogs/search(page=${blogs.number + 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Next">-->
             <a th:if="${keyword==null || categoryId==null}" class="page-link" th:href="@{/blogs(page=${blogs.number + 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
-<!--            </a>-->
         </li>
     </ul>
 </nav>
