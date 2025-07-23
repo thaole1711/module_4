@@ -18,7 +18,7 @@
                 </a>
 
                 <!-- Form Tìm kiếm (bên phải) -->
-                <form method="get" action="/blogs/search" class="d-flex align-items-center gap-2 p-3">
+                <form method="get" action="/blogs" class="d-flex align-items-center gap-2 p-3">
                     <input type="text" th:value="${keyword}" name="keyword"
                            class="form-control form-control-sm"
                            placeholder="Tìm theo tên" style="width: 200px;">
@@ -84,17 +84,18 @@
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item" th:if="${blogs.hasPrevious()}">
-            <a class="page-link" th:href="@{/blogs(page=${blogs.number - 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Previous">
+<!--            <a th:if="${keyword!=null || categoryId!=null}" class="page-link" th:href="@{/blogs/search(page=${blogs.number - 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Previous">-->
+            <a th:if="${keyword==null || categoryId==null}" class="page-link" th:href="@{/blogs(page=${blogs.number - 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
+<!--            </a>-->
         </li>
-        <!--            <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-        <!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-        <!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
         <li class="page-item" th:if="${blogs.hasNext()}">
-            <a class="page-link" th:href="@{/blogs(page=${blogs.number + 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Next">
+<!--            <a th:if="${keyword!=null || categoryId!=null}" class="page-link" th:href="@{/blogs/search(page=${blogs.number + 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Next">-->
+            <a th:if="${keyword==null || categoryId==null}" class="page-link" th:href="@{/blogs(page=${blogs.number + 1},keyword=${keyword},categoryId=${categoryId})}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
+<!--            </a>-->
         </li>
     </ul>
 </nav>

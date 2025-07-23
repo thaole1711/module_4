@@ -60,10 +60,10 @@ public class BlogService implements IBlogService {
 
     }
 
-    @Override
+   @Override
     public Page<Blog> search(String name,Integer idCategory, Pageable pageable) {
         return blogRepository.search(name,idCategory, pageable);
-    }
+   }
 
 
 }

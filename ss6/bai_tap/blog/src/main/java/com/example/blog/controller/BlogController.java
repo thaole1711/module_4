@@ -28,15 +28,28 @@ public class BlogController {
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "0") int page,
                         @RequestParam(defaultValue = "title") String sortField,
-                        @RequestParam(defaultValue = "asc") String sortDir){
+                        @RequestParam(defaultValue = "asc") String sortDir,
+                        @RequestParam(defaultValue = "") String keyword,
+                        @RequestParam(defaultValue = "") Integer categoryId){
         Sort sort = sortDir.equalsIgnoreCase("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         int size = 5;
-        Page<Blog> blogs = blogService.findAll(PageRequest.of(page, size,sort));
+        int searchId ;
+        if(categoryId==null){
+            searchId=0;
+        }else {
+            searchId=categoryId;
+        }
+        Page<Blog> blogs = blogService.search(keyword,searchId,PageRequest.of(page, size,sort));
         model.addAttribute("blogs", blogs);
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("categoryId", categoryId);
         model.addAttribute("categories", categoryService.findCategory());
         return "index";
+        //        int size = 5;
+//        Page<Blog> blogs = blogService.(PageRequest.of(page, size,sort));
+//        model.addAttribute("blogs", blogs);
+//        model.addAttribute("sortField", sortField);
+//        model.addAttribute("sortDir", sortDir);
     }
 
     @GetMapping("/create")
@@ -91,24 +104,24 @@ public class BlogController {
         return "redirect:/blogs";
     }
 
-    @GetMapping("/search")
-    public String search(@RequestParam(name = "page", defaultValue = "0") int page
-                         ,@RequestParam(defaultValue = "") String keyword,
-                         @RequestParam(required = false) Integer categoryId, Model model
-    ) {
-        int size = 1;
-        int searchId ;
-        if(categoryId==null){
-            searchId=0;
-        }else {
-            searchId=categoryId;
-        }
-        Page<Blog> blogs = blogService.search(keyword,searchId,PageRequest.of(page, size));
-        model.addAttribute("blogs", blogs);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("categoryId", categoryId);
-        model.addAttribute("categories", categoryService.findCategory());
-        return "index";
-    }
+//    @GetMapping("/search")
+//    public String search(@RequestParam(name = "page", defaultValue = "0") int page
+//                         ,@RequestParam(defaultValue = "") String keyword,
+//                         @RequestParam(required = false) Integer categoryId, Model model
+//    ) {
+//        int size = 5;
+//        int searchId ;
+//        if(categoryId==null){
+//            searchId=0;
+//        }else {
+//            searchId=categoryId;
+//        }
+//        Page<Blog> blogs = blogService.search(keyword,searchId,PageRequest.of(page, size));
+//        model.addAttribute("blogs", blogs);
+//        model.addAttribute("keyword", keyword);
+//        model.addAttribute("categoryId", categoryId);
+//        model.addAttribute("categories", categoryService.findCategory());
+//        return "index";
+//    }
 
 }

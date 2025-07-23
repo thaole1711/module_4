@@ -14,5 +14,5 @@ public interface IBlogService {
     void add(Blog blog);
     boolean edit(Blog bog);
     boolean delete(Integer id);
-     Page<Blog> search(String name,Integer idCategory,Pageable pageable);
+    Page<Blog> search(String name,Integer idCategory,Pageable pageable);
 }

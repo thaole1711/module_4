@@ -13,8 +13,6 @@ import java.util.List;
 @Repository
 public interface IBlogRepository extends JpaRepository<Blog,Integer> {
 
-    List<Blog> findAllByTitleContaining(String name , Integer idCategory);
-
     @Query("SELECT b FROM Blog b WHERE (b.category.idCategory = :idCategory OR :idCategory = 0) AND (b.title LIKE CONCAT('%', :name, '%'))")
     Page<Blog> search(@Param("name") String name,
                       @Param("idCategory") Integer idCategory,
