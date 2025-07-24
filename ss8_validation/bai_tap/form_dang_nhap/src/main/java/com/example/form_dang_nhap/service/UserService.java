@@ -6,11 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
     @Autowired
     IUserRepository userRepository;
+
+    @Override
+    public User findById(Integer id) {
+        return userRepository.findById(id).orElse(null);
+
+    }
+
     @Override
     public void create(User user) {
-        userRepository.save(user);
+        if (user.getId() == null || findById(user.getId()) == null) {
+            userRepository.save(user);
+        }
     }
 }

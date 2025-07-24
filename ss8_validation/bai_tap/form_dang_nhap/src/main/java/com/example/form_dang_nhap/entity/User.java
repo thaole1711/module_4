@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class User extends Parent{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String lastName;
     private String firstName;
     private String phone;
