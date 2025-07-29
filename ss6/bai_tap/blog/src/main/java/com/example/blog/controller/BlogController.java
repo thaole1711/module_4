@@ -30,16 +30,16 @@ public class BlogController {
                         @RequestParam(defaultValue = "title") String sortField,
                         @RequestParam(defaultValue = "asc") String sortDir,
                         @RequestParam(defaultValue = "") String keyword,
-                        @RequestParam(defaultValue = "") Integer categoryId){
+                        @RequestParam(defaultValue = "") Integer categoryId) {
         Sort sort = sortDir.equalsIgnoreCase("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         int size = 5;
-        int searchId ;
-        if(categoryId==null){
-            searchId=0;
-        }else {
-            searchId=categoryId;
+        int searchId;
+        if (categoryId == null) {
+            searchId = 0;
+        } else {
+            searchId = categoryId;
         }
-        Page<Blog> blogs = blogService.search(keyword,searchId,PageRequest.of(page, size,sort));
+        Page<Blog> blogs = blogService.search(keyword, searchId, PageRequest.of(page, size, sort));
         model.addAttribute("blogs", blogs);
         model.addAttribute("keyword", keyword);
         model.addAttribute("categoryId", categoryId);
@@ -124,4 +124,16 @@ public class BlogController {
 //        return "index";
 //    }
 
+    @GetMapping("/{id}/view")
+    public String view(@PathVariable Integer id, Model model, RedirectAttributes attributes) {
+        Blog blog = blogService.findById(id);
+        if (blog != null) {
+            model.addAttribute("blog", blog);
+            model.addAttribute("categories", categoryService.findCategory());
+            return "view";
+        }
+        attributes.addFlashAttribute("mess", "không tìm thấy blog cần thay đổi");
+        return "redirect:/blogs";
+
+    }
 }
