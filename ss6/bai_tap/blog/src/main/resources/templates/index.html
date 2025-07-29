@@ -55,6 +55,7 @@
                 <th>Nội dung</th>
                 <th>Thể loại</th>
                 <th>Chỉnh sửa</th>
+                <th>xem chi tiết</th>
                 <th>Xóa</th>
             </tr>
             </thead>
@@ -75,6 +76,12 @@
                             data-bs-target="#confirmDeleteModal" th:attr="data-id=${blog.id}">
                         <i class="bi bi-trash text-danger me-2"></i>
                     </button>
+                </td>
+                <td>
+                    <button type="button"
+                            class="btn btn-outline-warning"
+                            th:onclick="'window.location.href=\'/blogs/' + ${blog.id} + '/view\''">
+                        xem</button>
                 </td>
             </tr>
             </tbody>
