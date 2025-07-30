@@ -7,6 +7,7 @@ import com.example.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,15 @@ public class BlogRestController {
     private IBlogService blogService;
     @Autowired
     private ICategoryService categoryService;
-
-
     @GetMapping("")
+    public Page<Blog> findAll(@RequestParam(defaultValue = "1") int page,
+                                  @RequestParam(defaultValue = "2") int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return blogService.findAll(pageable); // trả về Page<BlogDTO>
+    }
+
+
+    @GetMapping("/")
     public ResponseEntity<Page<Blog>> index(
                         @RequestParam(name = "page", defaultValue = "0") int page,
                         @RequestParam(defaultValue = "title") String sortField,
@@ -33,14 +40,14 @@ public class BlogRestController {
                         @RequestParam(defaultValue = "") String keyword,
                         @RequestParam(defaultValue = "") Integer categoryId) {
         Sort sort = sortDir.equalsIgnoreCase("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
-        int size = 5;
+        int size = 2;
         int searchId;
         if (categoryId == null) {
             searchId = 0;
         } else {
             searchId = categoryId;
         }
-        Page<Blog> blogs = blogService.search(keyword, searchId, PageRequest.of(page, size, sort));
+        Page<Blog> blogs = blogService.search(keyword, searchId, PageRequest.of(page -1, size, sort));
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
     @GetMapping("/{id}/view")
