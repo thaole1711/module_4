@@ -32,7 +32,7 @@ public class BlogController {
                         @RequestParam(defaultValue = "") String keyword,
                         @RequestParam(defaultValue = "") Integer categoryId) {
         Sort sort = sortDir.equalsIgnoreCase("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
-        int size = 5;
+        int size = 2;
         int searchId;
         if (categoryId == null) {
             searchId = 0;
